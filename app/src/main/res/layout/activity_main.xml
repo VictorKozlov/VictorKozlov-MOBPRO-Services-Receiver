@@ -44,7 +44,8 @@
             <CheckBox
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/service_msgBox_connected_to_service"></CheckBox>
+                android:text="@string/service_msgBox_connected_to_service"
+                android:id="@+id/ckb_bound"></CheckBox>
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
@@ -52,11 +53,13 @@
                 <Button
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/service_btnNext_title"></Button>
+                    android:text="@string/service_btnNext_title"
+                    android:id="@+id/service_btn_next"></Button>
                 <Button
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/service_btnPrev_title"></Button>
+                    android:text="@string/service_btnPrev_title"
+                    android:id="@+id/service_btn_get_history"></Button>
             </LinearLayout>
         </LinearLayout>
     </ScrollView>
