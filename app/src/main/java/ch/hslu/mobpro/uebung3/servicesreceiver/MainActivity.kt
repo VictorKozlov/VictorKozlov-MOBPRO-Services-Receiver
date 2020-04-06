@@ -3,11 +3,11 @@ package ch.hslu.mobpro.uebung3.servicesreceiver
 import android.app.AlertDialog
 import android.app.NotificationChannel
 import android.app.NotificationManager
-import android.content.Context
-import android.content.Intent
-import android.content.ServiceConnection
+import android.content.*
 import android.os.Bundle
+import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
+import androidx.localbroadcastmanager.content.LocalBroadcastManager
 import kotlinx.android.synthetic.main.activity_main.*
 
 
@@ -18,6 +18,11 @@ class MainActivity : AppCompatActivity(R.layout.activity_main) {
     }
 
     private var musicServiceConnection: MusicPlayerConnection? = null
+    private val myBroadcastReceiver = object : BroadcastReceiver() {
+        override fun onReceive(context: Context, intent: Intent) {
+            receiver_txt_message.text = intent.getStringExtra(getString(R.string.key_message))
+        }
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -38,6 +43,12 @@ class MainActivity : AppCompatActivity(R.layout.activity_main) {
         }
         service_btn_get_history.setOnClickListener{
             showHistory()
+        }
+        receiver_btn_send_broadcast.setOnClickListener{
+            sendBroadcast()
+        }
+        ckb_receiver.setOnClickListener{
+            initBroadcast()
         }
         ckb_bound.isChecked = false
     }
@@ -100,5 +111,25 @@ class MainActivity : AppCompatActivity(R.layout.activity_main) {
         unbindService(musicServiceConnection as ServiceConnection)
         musicServiceConnection = null
         ckb_bound.isChecked = false
+    }
+
+    private fun initBroadcast(){
+        if(ckb_receiver.isChecked){
+            var filter =  IntentFilter("ACTION_MY_BROADCAST");
+            LocalBroadcastManager.getInstance(this)
+                .registerReceiver(myBroadcastReceiver, filter);
+            Log.d("receiver", "Registered receiver");
+        }
+        else{
+            LocalBroadcastManager.getInstance(applicationContext).unregisterReceiver(myBroadcastReceiver)
+            Log.d("receiver", "Unregistered receiver");
+        }
+    }
+
+    private fun sendBroadcast(){
+        Log.d("sender", "Broadcasting message");
+        val localBroadcast = Intent("ACTION_MY_BROADCAST")
+        localBroadcast.putExtra("message", "Here is my local broadcast message!")
+        LocalBroadcastManager.getInstance(this).sendBroadcast(localBroadcast)
     }
 }

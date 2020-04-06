@@ -14,4 +14,10 @@
 
     <string name="musicplayerservice_Channel_name">Music App</string>
     <string name="musicplayerservice_Channel_description">HSLU Music App Channel</string>
+    <string name="receiver_title">Broadcast receivers</string>
+    <string name="receiver_ckb_text">Kein BroadcastReceiver registriert</string>
+    <string name="receiver_label_messages">Nachricht vom Broadcast receiver:</string>
+    <string name="receiver_btn_send_broadcast">Broadcast verschicken</string>
+
+    <string name="key_message">message</string>
 </resources>
